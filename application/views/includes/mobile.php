@@ -5,7 +5,7 @@
         -------------------->
         <div class="menu-mobile menu-activated-on-click color-scheme-dark">
           <div class="mm-logo-buttons-w">
-            <a class="mm-logo" href="index.html"><img src="img/logo.png"><span>CSMT</span></a>
+            <a class="mm-logo" href="index.html"><img href="<?php echo base_url(); ?>assets/img/logo.png"><span>CSMT</span></a>
             <div class="mm-buttons">
               <div class="content-panel-open">
                 <div class="os-icon os-icon-grid-circles"></div>
@@ -18,7 +18,7 @@
           <div class="menu-and-user">
             <div class="logged-user-w">
               <div class="avatar-w">
-                <img alt="" src="img/avatar1.jpg">
+                <img alt="" href="<?php echo base_url(); ?>assets/img/avatar1.jpg">
               </div>
               <div class="logged-user-info-w">
                 <div class="logged-user-name">

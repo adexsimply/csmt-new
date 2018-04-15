@@ -68,40 +68,40 @@
 
                                           <div class="col-md-12 mt-5">
                                             <h5 >Session List
-                      											   <button class="btn btn-outline-primary pull-right" data-target="#humanitiesModal" data-toggle="modal" type="button">Add Session</button>
+                      											   <button class="btn btn-outline-primary pull-right" data-target="#humanitiesModal" data-toggle="modal" onclick="clear_textbox()" type="button">Add Session</button>
                       											   <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="humanitiesModal" role="dialog" tabindex="-1">
-                      												  <div class="modal-dialog modal-lg px-5" role="document">
-                      													<div class="modal-content">
-                      													  <div class="modal-header">
-                      														<h5 class="modal-title" id="exampleModalLabel">
-                      														  Add New Session
-                      														</h5>
-                      														<button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
-                      													  </div>
-                      													  <div class="modal-body ">
-                      					                                    <div class="element-box">
-                      					                                      <form action="">
-                      					                                        <div class="row">
-                      					                                          <div class="col-md-2"></div>
-                      					                                          <div class="col-md-7">
-                      					                                            <label for="" >Session Name</label>
-                      					                                            <input type="text" class="form-control" placeholder=" Example 2014 / 2015">
-                      					                                            <button class="btn btn-success mt-3">Add Session</button>
-                      					                                          </div>
-                      					                                          <div class="col-md-5"></div>
-                      					                                        </div>
-                      					                                          
-                      					                                      </form>                      
-                      					                                    </div>
-                        													  </div>
-                        													  <div class="modal-footer">
-                        														<button class="btn btn-secondary" data-dismiss="modal" type="button"> Cancel</button><button class="btn btn-primary" type="button"> Register </button>
-                        													  </div>
-                        													</div>
-                        												  </div>
-                        											  </div>
-                        											</h5>
-
+                        												  <div class="modal-dialog modal-lg px-5" role="document">
+                                                    <form id="add-session">
+                              													<div class="modal-content">
+                              													  <div class="modal-header">
+                              														<h5 class="modal-title" id="exampleModalLabel">
+                              														  Add New Session
+                              														</h5>
+                              														<button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
+                              													  </div>
+                              													  <div class="modal-body ">
+                              					                                    <div class="element-box">
+                              					                                        <div class="row">
+                              					                                          <div class="col-md-2"></div>
+                              					                                          <div class="col-md-7">
+                              					                                            <label for="" >Session Name</label>
+                                                                      <input type="text" class="form-control" hidden="" name="sess_id" placeholder=" Example 2014 / 2015">
+                              					                                            <input type="text" class="form-control" name="sess_name" placeholder=" Example 2014 / 2015">
+                              					                                          </div>
+                              					                                          <div class="col-md-5"></div>
+                                                                                  <div style="color: #ff0000;" class="form-control-feedback" data-field="sess_name"></div>
+                              					                                        </div>
+                              					                                                             
+                              					                                    </div>
+                                													  </div>
+                                													  <div class="modal-footer">
+                                														<button class="btn btn-secondary" data-dismiss="modal" type="button"> Cancel</button><button class="btn btn-primary" type="button" title="add_session" onclick="form_routes_add('add_session')">Add Session</button>
+                                													  </div>
+                            													 </div>
+                                                    </form>
+                          												</div>
+                        											 </div>
+                        										</h5>
                                             <div class="table-responsive">
                                               <table class="table table-lightborder">
                                                 <thead>
@@ -109,6 +109,7 @@
                                                   <td>Session Name</td>
                                                   <td>Session Status</td>
                                                   <td>Date Added</td>
+                                                  <td>Added By</td>
                                                   <td>Action</td>
                                                   
                                                 </thead>
@@ -124,13 +125,14 @@
                                                     <td> <?php if($session_status=='1') { ?>
                                                       <button class="btn btn-success"><i class="icon-check mr-1"></i>Current Session</button>
                                                       <?php } else { ?>
-                                                      <button class="btn btn-info text-white"><i class="icon-check mr-1"></i>Activate Session</button>
+                                                      <button class="btn btn-info text-white" onclick="activate_session_name('<?php echo $sessions->id;?>')"><i class="icon-check mr-1"></i>Activate Session</button>
                                                       <?php } ?>
                                                     </td>
                                                     <td><?php echo $sessions->date_added; ?></td>
+                                                    <td><?php echo $sessions->username; ?></td>
                                                     <td>
-                                                      <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
-                                                      <button class="btn btn-info text-white" title="Edit"><i class="os-icon os-icon-ui-49"></i></button>
+                                                      <button class="btn btn-danger" onclick="delete_session_name('<?php echo $sessions->id;?>')" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
+                                                      <button class="btn btn-info text-white" onclick="get_data('<?php echo $sessions->id;?>')" data-target="#humanitiesModal" data-toggle="modal" title="Edit"><i class="os-icon os-icon-ui-49"></i></button>
                                                     </td>
                                                   </tr>
                                                   <?php $i_session++;
@@ -583,3 +585,130 @@
         </div>
 
 <?php $this->load->view('includes/foot'); ?>
+
+<script type="text/javascript">
+    /////Add Session form begins
+    function validate(formData) {
+        var returnData;
+        $('#add-session').disable([".action"]);
+        $("button[title='add_session']").html("Validating data, please wait...");
+        $.ajax({
+            url: "<?php echo base_url() . 'admissions/validate_session_name'; ?>", async: false, type: 'POST', data: formData,
+            success: function(data, textStatus, jqXHR) {
+                returnData = data;
+            }
+        });
+
+
+        $('#add-session').enable([".action"]);
+        $("button[title='add_session']").html("Save changes");
+        if (returnData != 'success') {
+            $('#add-session').enable([".action"]);
+            $("button[title='add_session']").html("Save changes");
+            $('.form-control-feedback').html('');
+            $('.form-control-feedback').each(function() {
+                for (var key in returnData) {
+                    if ($(this).attr('data-field') == key) {
+                        $(this).html(returnData[key]);
+                    }
+                }
+            });
+        } else {
+            return 'success';   
+        }
+    }
+
+    function save_session_name(formData) {
+        $("button[title='add_session']").html("Saving data, please wait...");
+        $.post("<?php echo base_url() . 'admissions/add_session_name'; ?>", formData).done(function(data) {
+
+            window.location = "<?php echo base_url().'admissions'; ?>";
+        });
+    }
+
+    function form_routes_add(action) {
+        if (action == 'add_session') {
+            var formData = $('#add-session').serialize();
+            if (validate(formData) == 'success') {
+                swal({   
+                    title: "Please check your data",   
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    cancelButtonText: "Cancel",
+                    confirmButtonText: "Save",
+                    closeOnConfirm: true 
+                }, function() {
+                    save_session_name(formData);
+                });
+            }
+        } else {
+            cancel();
+        }
+    }
+    //////////////Add session form ends
+
+
+
+  function delete_session_name(rowIndex) {
+    swal({   
+      title: "Are you sure want to delete this data?",   
+      text: "Deleted data can not be restored!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      cancelButtonText: "Cancel",
+      confirmButtonText: "Proceed",
+      closeOnConfirm: true 
+    }, function() {
+      //var row = datagrid.getRowData(rowIndex);
+      $.post("<?php echo base_url() . 'admissions/delete_sess'; ?>", {id : rowIndex}).done(function(data) {
+       window.location = "<?php echo base_url().'admissions'; ?>";
+      });
+    });
+  }
+
+  function activate_session_name(rowIndex) {
+    swal({   
+      title: "Are you sure want to Activate?",   
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      cancelButtonText: "Cancel",
+      confirmButtonText: "Proceed",
+      closeOnConfirm: true 
+    }, function() {
+      //var row = datagrid.getRowData(rowIndex);
+      $.post("<?php echo base_url() . 'admissions/activate_sess'; ?>", {id : rowIndex}).done(function(data) {
+       window.location = "<?php echo base_url().'admissions'; ?>";
+      });
+    });
+  }
+
+////Function to show form for session editing
+    function get_data(idr) {
+      $.ajax({
+    type: "POST",
+    url: '<?php echo base_url('admissions/ajax_text')?>',
+    dataType : 'json',
+    data: {id: idr},
+    success: function(data){
+
+            var sess1_name = data[0].sess_name;
+            var sess_id = data[0].id;
+            $('[name="sess_name"]').val(sess1_name);
+            $('[name="sess_id"]').val(sess_id);
+    }
+});
+    }
+
+   
+    function clear_textbox() {
+    $('input[type=text]').each(function() {
+        $(this).val('');
+    });
+  }
+
+</script> 

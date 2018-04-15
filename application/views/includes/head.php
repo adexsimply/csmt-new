@@ -8,7 +8,9 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="<?php echo base_url(); ?>assets/favicon.png" rel="shortcut icon">
     <link href="<?php echo base_url(); ?>assets/apple-touch-icon.png" rel="apple-touch-icon">
-    <link href="<?php echo base_url(); ?>assets/https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url() . 'assets/sweetalert/dist/sweetalert.css'; ?>"/>
+    <script type="text/javascript" src="<?php echo base_url() . 'assets/sweetalert/dist/sweetalert.min.js'; ?>"></script>
+    <link href="<?php echo base_url(); ?>assets/css/font.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url(); ?>assets/bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/bower_components/dropzone/dist/dropzone.css" rel="stylesheet">
