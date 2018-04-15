@@ -74,13 +74,11 @@ class Admissions extends Base_Controller {
 		$this->db->update('session_list');
 	}
 
-	public function ajax_text() {
-		//$id =12;
-		$id = $this->input->post('id');
-		$get_session = $this->db->select('*')->from('session_list')->where('id', $id)->get();
-		$session_list = $get_session->row();
-		echo "[".json_encode($session_list)."]";
-		 
+	public function get_session_details() {
+
+        $this->load->model('admissions_m');
+        $session_list = $this->admissions_m->get_session_by_id();
+		echo "[".json_encode($session_list)."]";		 
 	}
 
 

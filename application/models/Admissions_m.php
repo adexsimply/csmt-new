@@ -32,9 +32,11 @@ class Admissions_m extends CI_Model {
         }
     }
 
-	function session_list(){
-		$hasil=$this->db->get('product');
-		return $hasil->result();
+	function get_session_by_id(){
+		$id = $this->input->post('id');
+		$get_session = $this->db->select('*')->from('session_list')->where('id', $id)->get();
+		$session_list = $get_session->row();
+		return $session_list;
 	}
 }
 
