@@ -75,7 +75,7 @@
                               													<div class="modal-content">
                               													  <div class="modal-header">
                               														<h5 class="modal-title" id="exampleModalLabel">
-                              														  Add New Session
+                              														  <span id="session_heading"></span> 
                               														</h5>
                               														<button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
                               													  </div>
@@ -86,7 +86,7 @@
                               					                                          <div class="col-md-7">
                               					                                            <label for="" >Session Name</label>
                                                                       <input type="text" class="form-control" hidden="" name="sess_id" placeholder=" Example 2014 / 2015">
-                              					                                            <input type="text" class="form-control" name="sess_name" placeholder=" Example 2014 / 2015">
+                              					                                            <input type="text" class="form-control" name="sess_name" id="sess_name11" placeholder=" Example 2014 / 2015">
                               					                                          </div>
                               					                                          <div class="col-md-5"></div>
                                                                                   <div style="color: #ff0000;" class="form-control-feedback" data-field="sess_name"></div>
@@ -95,7 +95,7 @@
                               					                                    </div>
                                 													  </div>
                                 													  <div class="modal-footer">
-                                														<button class="btn btn-secondary" data-dismiss="modal" type="button"> Cancel</button><button class="btn btn-primary" type="button" title="add_session" onclick="form_routes_add('add_session')">Add Session</button>
+                                														<button class="btn btn-secondary" data-dismiss="modal" type="button"> Cancel</button><button class="btn btn-primary" type="button" title="add_session" onclick="form_routes_add('add_session')">Confirm</button>
                                 													  </div>
                             													 </div>
                                                     </form>
@@ -691,21 +691,24 @@
     function get_data(idr) {
       $.ajax({
     type: "POST",
-    url: '<?php echo base_url('admissions/ajax_text')?>',
+    url: '<?php echo base_url('admissions/get_session_details')?>',
     dataType : 'json',
     data: {id: idr},
     success: function(data){
 
             var sess1_name = data[0].sess_name;
             var sess_id = data[0].id;
+            var edit = "Edit"
             $('[name="sess_name"]').val(sess1_name);
             $('[name="sess_id"]').val(sess_id);
+            document.getElementById('session_heading').innerHTML = "Edit Session";
     }
 });
     }
 
-   
+   ///This clears textbox on modal toggle
     function clear_textbox() {
+    document.getElementById('session_heading').innerHTML = "Add New Session";
     $('input[type=text]').each(function() {
         $(this).val('');
     });
