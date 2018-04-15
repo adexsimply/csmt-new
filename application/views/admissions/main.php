@@ -68,39 +68,39 @@
 
                                           <div class="col-md-12 mt-5">
                                             <h5 >Session List
-											   <button class="btn btn-outline-primary pull-right" data-target="#humanitiesModal" data-toggle="modal" type="button">Add Session</button>
-											   <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="humanitiesModal" role="dialog" tabindex="-1">
-												  <div class="modal-dialog modal-lg px-5" role="document">
-													<div class="modal-content">
-													  <div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">
-														  Add New Session
-														</h5>
-														<button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
-													  </div>
-													  <div class="modal-body ">
-					                                    <div class="element-box">
-					                                      <form action="">
-					                                        <div class="row">
-					                                          <div class="col-md-2"></div>
-					                                          <div class="col-md-7">
-					                                            <label for="" >Session Name</label>
-					                                            <input type="text" class="form-control" placeholder=" Example 2014 / 2015">
-					                                            <button class="btn btn-success mt-3">Add Session</button>
-					                                          </div>
-					                                          <div class="col-md-5"></div>
-					                                        </div>
-					                                          
-					                                      </form>                      
-					                                    </div>
-													  </div>
-													  <div class="modal-footer">
-														<button class="btn btn-secondary" data-dismiss="modal" type="button"> Cancel</button><button class="btn btn-primary" type="button"> Register </button>
-													  </div>
-													</div>
-												  </div>
-											  </div>
-											</h5>
+                      											   <button class="btn btn-outline-primary pull-right" data-target="#humanitiesModal" data-toggle="modal" type="button">Add Session</button>
+                      											   <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="humanitiesModal" role="dialog" tabindex="-1">
+                      												  <div class="modal-dialog modal-lg px-5" role="document">
+                      													<div class="modal-content">
+                      													  <div class="modal-header">
+                      														<h5 class="modal-title" id="exampleModalLabel">
+                      														  Add New Session
+                      														</h5>
+                      														<button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
+                      													  </div>
+                      													  <div class="modal-body ">
+                      					                                    <div class="element-box">
+                      					                                      <form action="">
+                      					                                        <div class="row">
+                      					                                          <div class="col-md-2"></div>
+                      					                                          <div class="col-md-7">
+                      					                                            <label for="" >Session Name</label>
+                      					                                            <input type="text" class="form-control" placeholder=" Example 2014 / 2015">
+                      					                                            <button class="btn btn-success mt-3">Add Session</button>
+                      					                                          </div>
+                      					                                          <div class="col-md-5"></div>
+                      					                                        </div>
+                      					                                          
+                      					                                      </form>                      
+                      					                                    </div>
+                        													  </div>
+                        													  <div class="modal-footer">
+                        														<button class="btn btn-secondary" data-dismiss="modal" type="button"> Cancel</button><button class="btn btn-primary" type="button"> Register </button>
+                        													  </div>
+                        													</div>
+                        												  </div>
+                        											  </div>
+                        											</h5>
 
                                             <div class="table-responsive">
                                               <table class="table table-lightborder">
@@ -113,46 +113,28 @@
                                                   
                                                 </thead>
                                                 <tbody>
+                                                  <?php 
+                                                  $i_session = 1;
+                                                  foreach ($session_list as $sessions) { 
+                                                    $session_status = $sessions->session_status;
+                                                    ?>
                                                   <tr>
-                                                    <td>1</td>
-                                                    <td>2017/2018</td>
-                                                    <td><button class="btn btn-success"><i class="icon-check mr-1"></i>Current Session</button></td>
-                                                    <td>16-08-2017 11:19am</td>
+                                                    <td><?php echo $i_session; ?></td>
+                                                    <td><?php echo $sessions->sess_name; ?></td>
+                                                    <td> <?php if($session_status=='1') { ?>
+                                                      <button class="btn btn-success"><i class="icon-check mr-1"></i>Current Session</button>
+                                                      <?php } else { ?>
+                                                      <button class="btn btn-info text-white"><i class="icon-check mr-1"></i>Activate Session</button>
+                                                      <?php } ?>
+                                                    </td>
+                                                    <td><?php echo $sessions->date_added; ?></td>
                                                     <td>
                                                       <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
                                                       <button class="btn btn-info text-white" title="Edit"><i class="os-icon os-icon-ui-49"></i></button>
                                                     </td>
                                                   </tr>
-                                                  <tr>
-                                                    <td>2</td>
-                                                    <td>2016/2017</td>
-                                                    <td><button class="btn btn-info text-white"><i class="icon-check mr-1"></i>Activate Session</button></td>
-                                                    <td>05-09-2016 4:14pm</td>
-                                                    <td>
-                                                      <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
-                                                      <button class="btn btn-info text-white" title="Edit"><i class="os-icon os-icon-ui-49"></i></button>
-                                                    </td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>3</td>
-                                                    <td>2015/2016</td>
-                                                    <td><button class="btn btn-info text-white"><i class="icon-check mr-1"></i>Activate Session</button></td>
-                                                    <td>05-09-2016 4:14pm</td>
-                                                    <td>
-                                                      <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
-                                                      <button class="btn btn-info text-white" title="Edit"><i class="os-icon os-icon-ui-49"></i></button>
-                                                    </td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>4</td>
-                                                    <td>2014/2015</td>
-                                                    <td><button class="btn btn-info text-white"><i class="icon-check mr-1"></i>Activate Session</button></td>
-                                                    <td>05-09-2016 4:14pm</td>
-                                                    <td>
-                                                      <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
-                                                      <button class="btn btn-info text-white" title="Edit"><i class="os-icon os-icon-ui-49"></i></button>
-                                                    </td>
-                                                  </tr>
+                                                  <?php $i_session++;
+                                                   } ?>
                                                 </tbody>
                                               </table>
                                             </div>
