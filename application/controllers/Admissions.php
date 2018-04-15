@@ -22,6 +22,7 @@ class Admissions extends Base_Controller {
 	{		
 		$this->load->model('admission_m');
 		$this->data['title'] = 'Admissions';
+		$this->data['session_list'] = $this->admission_m->get_session_list();
 		//$this->data['childview'] = 'dashboard/main';
 		$this->load->view('admissions/main', $this->data);
 	}
