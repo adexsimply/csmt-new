@@ -31,6 +31,8 @@
     <script src="<?php echo base_url(); ?>assets/bower_components/bootstrap/js/dist/tooltip.js"></script>
     <script src="<?php echo base_url(); ?>assets/bower_components/bootstrap/js/dist/popover.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/main.js?version=4.2.0"></script>
+    <script src="<?php echo base_url(); ?>/assets/disabler-enabler/enabler.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>/assets/disabler-enabler/disabler.js" type="text/javascript"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
