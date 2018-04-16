@@ -149,33 +149,50 @@
                             </div>
                           </div>
 
+
                           <div class="tab-pane" id="tab_termSetup">
                             <div class="tablo-with-chart">
                               <div class="row">
                                 <div class="col-sm-12 col-xxl-12">
                                   <div class="tablos">
-                                      <h6 class="element-header">
-                                        Create New Term
-                                      </h6>
-                                     
-                                      <div class="element-box">
-                                        <form action="">
-                                          <div class="row">
-                                            <div class="col-md-2"></div>
-                                            <div class="col-md-7">
-                                              <label for="" >Term Name</label>
-                                              <input type="text" class="form-control" placeholder=" E.g First Term">
-                                              <button class="btn btn-success mt-3">Add Term</button>
-                                            </div>
-                                            <div class="col-md-5"></div>
-                                          </div>
-                                            
-                                        </form>                      
-                                      </div>
                                       <div class="element-box">
                                         <div class="row">                        
                                           <div class="col-md-12 mt-5">
-                                            <h5 >Term List</h5>
+                                            <h5 >Term List
+                                               <button class="btn btn-outline-primary pull-right" data-target="#termModal" data-toggle="modal" onclick="clear_textbox_term()" type="button">Add Term</button>
+                                               <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="termModal" role="dialog" tabindex="-1">
+                                                  <div class="modal-dialog modal-lg px-5" role="document">
+                                                    <form id="add-term">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                          <h5 class="modal-title" id="exampleModalLabel">
+                                                            <span id="term_heading"></span> 
+                                                          </h5>
+                                                          <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
+                                                          </div>
+                                                          <div class="modal-body ">
+                                                                            <div class="element-box">
+                                                                                <div class="row">
+                                                                                  <div class="col-md-2"></div>
+                                                                                  <div class="col-md-7">
+                                                                                    <label for="" >Term Name</label>
+                                                                      <input type="text" class="form-control" hidden="" name="term_id" placeholder=" Example 2014 / 2015">
+                                                                                    <input type="text" class="form-control" name="term_name"  placeholder=" E.g First Term">
+                                                                                  </div>
+                                                                                  <div class="col-md-5"></div>
+                                                                                  <div style="color: #ff0000;" class="form-control-feedback" data-field="term_name"></div>
+                                                                                </div>
+                                                                                                     
+                                                                            </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button class="btn btn-secondary" data-dismiss="modal" type="button"> Cancel</button><button class="btn btn-primary" type="button" title="add_term" onclick="form_routes_add_term('add_term')">Confirm</button>
+                                                            </div>
+                                                       </div>
+                                                    </form>
+                                                  </div>
+                                               </div>
+                                            </h5>
                                             <div class="table-responsive">
                                               <table class="table table-lightborder">
                                                 <thead>
@@ -183,42 +200,35 @@
                                                   <td>Session Name</td>
                                                   <td>Session Status</td>
                                                   <td>Date Added</td>
+                                                  <td>Added By</td>
                                                   <td>Action</td>
                                                   
                                                 </thead>
-                                                <tbody>
+                                                <tbody>                                                  
+                                                  <?php 
+                                                  $i_term = 1;
+                                                  foreach ($term_list as $terms) { 
+                                                    $term_status = $terms->term_status;
+                                                    ?>
                                                   <tr>
-                                                    <td>1</td>
-                                                    <td>Third term</td>
-                                                    <td><button class="btn btn-success"><i class="icon-check mr-1"></i>Current Term</button></td>
-                                                    <td>16-08-2017 11:19am</td>
+                                                    <td><?php echo $i_term; ?></td>
+                                                    <td><?php echo $terms->term_name; ?></td>
                                                     <td>
-                                                      <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
-                                                      <button class="btn btn-info text-white" title="Edit"><i class="os-icon os-icon-ui-49"></i></button>
+                                                      <?php if($term_status=='1') { ?><button class="btn btn-success"><i class="icon-check mr-1"></i>Current Term</button></td>
+                                                      <?php } else { ?><button class="btn btn-info text-white" onclick="activate_term_name('<?php echo $terms->id;?>')"><i class="icon-check mr-1"></i>Activate Term</button></td>
+                                                      <?php } ?>
+                                                    <td><?php echo $terms->date_added; ?></td>
+                                                    <td><?php echo $terms->username; ?></td>
+                                                    <td>                                                    
+                                                      <button class="btn btn-danger" title="Delete" onclick="delete_term_name('<?php echo $terms->id;?>')"><i class="os-icon os-icon-ui-15"></i></button>
+
+
+                                                      <button class="btn btn-info text-white" onclick="get_term_data('<?php echo $terms->id; ?>')" title="Edit2" data-target="#termModal" data-toggle="modal"  ><i class="os-icon os-icon-ui-49"></i></button>
+
                                                     </td>
                                                   </tr>
-                                                  <tr>
-                                                    <td>2</td>
-                                                    <td>2016/2017</td>
-                                                    <td><button class="btn btn-info text-white"><i class="icon-check mr-1"></i>Activate Term</button></td>
-                                                    <td>05-09-2016 4:14pm</td>
-                                                    <td>
-                                                      <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
-                                                      <button class="btn btn-info text-white" title="Edit"><i class="os-icon os-icon-ui-49"></i></button>
-                                                    </td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>3</td>
-                                                    <td>First Term</td>
-                                                    <td><button class="btn btn-success"><i class="icon-check mr-1"></i>Current Term</button>
-                                                    </td>
-                                                    <td>05-09-2016 4:14pm</td>
-                                                    <td>
-                                                      <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
-                                                      <button class="btn btn-info text-white" title="Edit"><i class="os-icon os-icon-ui-49"></i></button>
-                                                    </td>
-                                                  </tr>
-                                                  
+                                                  <?php $i_term++;
+                                                   } ?>
                                                 </tbody>
                                               </table>
                                             </div>
@@ -227,78 +237,82 @@
                                       </div>
                                   </div>
                                 </div>
-                              
                               </div>
                             </div>
                           </div>
-
 
                           <div class="tab-pane" id="tab_levelSetup">
                             <div class="tablo-with-chart">
                               <div class="row">
                                 <div class="col-sm-12 col-xxl-12">
                                   <div class="tablos">
-                                      <h6 class="element-header">
-                                        Create New Level
-                                      </h6>
-                                     
-                                      <div class="element-box">
-                                        <form action="">
-                                          <div class="row">
-                                            <div class="col-md-2"></div>
-                                            <div class="col-md-7">
-                                              <label for="" >Level Name</label>
-                                              <input type="text" class="form-control" placeholder=" E.g JSS1">
-                                              <button class="btn btn-success mt-3">Add Level</button>
-                                            </div>
-                                            <div class="col-md-5"></div>
-                                          </div>
-                                            
-                                        </form>                      
-                                      </div>
                                       <div class="element-box">
                                         <div class="row">                        
                                           <div class="col-md-12 mt-5">
-                                            <h5 >Academic level List</h5>
+                                            <h5 >Academic level List
+                                               <button class="btn btn-outline-primary pull-right" data-target="#levelModal" data-toggle="modal" onclick="clear_textbox_level()" type="button">Add Level</button>
+                                               <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="levelModal" role="dialog" tabindex="-1">
+                                                  <div class="modal-dialog modal-lg px-5" role="document">
+                                                    <form id="add-level">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                          <h5 class="modal-title" id="exampleModalLabel">
+                                                            <span id="level_heading"></span> 
+                                                          </h5>
+                                                          <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
+                                                          </div>
+                                                          <div class="modal-body ">
+                                                              <div class="element-box">
+                                                                  <div class="row">
+                                                                    <div class="col-md-2"></div>
+                                                                    <div class="col-md-7">
+                                                                      <label for="" >Level Name</label>
+                                                                      <input type="text" class="form-control" hidden="" name="level_id" placeholder=" Example JSS1">
+                                                                      <input type="text" class="form-control" name="level_name"  placeholder=" Example JSS1">
+                                                                      <label for="" >Level Name</label>
+                                                                      <input type="text" class="form-control" name="level_rank"  placeholder=" Example 1">
+                                                                    </div>
+                                                                    <div style="color: #ff0000;" class="form-control-feedback" data-field="level_name"></div>
+                                                                    <div class="col-md-5"></div>
+                                                                  </div>              
+                                                              </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button class="btn btn-secondary" data-dismiss="modal" type="button"> Cancel</button><button class="btn btn-primary" type="button" title="add_level" onclick="form_routes_add_level('add_level')">Confirm</button>
+                                                            </div>
+                                                       </div>
+                                                    </form>
+                                                  </div>
+                                               </div></h5>
                                             <div class="table-responsive">
                                               <table class="table table-lightborder">
                                                 <thead>
                                                   <td>S/N</td>
                                                   <td>Level Name</td>
+                                                  <td>Level Rank</td>
                                                   <td>Date Added</td>
+                                                  <td>Added By</td>
                                                   <td>Action</td>
                                                   
                                                 </thead>
-                                                <tbody>
+                                                <tbody>                                                  
+                                                  <?php 
+                                                  $i_level = 1;
+                                                  foreach ($level_list as $levels) { 
+                                                    ?>
                                                   <tr>
-                                                    <td>1</td>
-                                                    <td>SSS2</td>
-                                                    <td>16-08-2017 11:19am</td>
+                                                    <td><?php echo $i_level; ?></td>
+                                                    <td><?php echo $levels->level_name;?></td>
+                                                    <td><?php echo $levels->level_rank; ?></td>
+                                                    <td><?php echo $levels->date_added; ?></td>
+                                                    <td><?php echo $levels->added_by; ?></td>
                                                     <td>
-                                                      <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
-                                                      <button class="btn btn-info text-white" title="Edit"><i class="os-icon os-icon-ui-49"></i></button>
+                                                      <button class="btn btn-danger" title="Delete" onclick="delete_level_name('<?php echo $levels->id;?>')"><i class="os-icon os-icon-ui-15"></i></button>
+                                                      <button class="btn btn-info text-white" title="Edit" onclick="get_level_data('<?php echo $levels->id; ?>')" data-target="#levelModal" data-toggle="modal"  ><i class="os-icon os-icon-ui-49"></i></button>
                                                     </td>
                                                   </tr>
-                                                  <tr>
-                                                    <td>2</td>
-                                                    <td>SSS1</td>
-                                                   
-                                                    <td>05-09-2016 4:14pm</td>
-                                                    <td>
-                                                      <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
-                                                      <button class="btn btn-info text-white" title="Edit"><i class="os-icon os-icon-ui-49"></i></button>
-                                                    </td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>3</td>
-                                                    <td>JSS3</td>
-                                                    
-                                                    <td>05-09-2016 4:14pm</td>
-                                                    <td>
-                                                      <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
-                                                      <button class="btn btn-info text-white" title="Edit"><i class="os-icon os-icon-ui-49"></i></button>
-                                                    </td>
-                                                  </tr>
+                                                  <?php $i_level++;
+                                                   } ?>
                                                   
                                                 </tbody>
                                               </table>
@@ -600,6 +614,7 @@
         });
 
 
+
         $('#add-session').enable([".action"]);
         $("button[title='add_session']").html("Save changes");
         if (returnData != 'success') {
@@ -651,67 +666,328 @@
 
 
 
-  function delete_session_name(rowIndex) {
-    swal({   
-      title: "Are you sure want to delete this data?",   
-      text: "Deleted data can not be restored!",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
-      cancelButtonText: "Cancel",
-      confirmButtonText: "Proceed",
-      closeOnConfirm: true 
-    }, function() {
-      //var row = datagrid.getRowData(rowIndex);
-      $.post("<?php echo base_url() . 'admissions/delete_sess'; ?>", {id : rowIndex}).done(function(data) {
-       window.location = "<?php echo base_url().'admissions'; ?>";
+    function delete_session_name(rowIndex) {
+      swal({   
+        title: "Are you sure want to delete this data?",   
+        text: "Deleted data can not be restored!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        cancelButtonText: "Cancel",
+        confirmButtonText: "Proceed",
+        closeOnConfirm: true 
+      }, function() {
+        //var row = datagrid.getRowData(rowIndex);
+        $.post("<?php echo base_url() . 'admissions/delete_sess'; ?>", {id : rowIndex}).done(function(data) {
+         window.location = "<?php echo base_url().'admissions'; ?>";
+        });
       });
-    });
-  }
-
-  function activate_session_name(rowIndex) {
-    swal({   
-      title: "Are you sure want to Activate?",   
-      text: "",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
-      cancelButtonText: "Cancel",
-      confirmButtonText: "Proceed",
-      closeOnConfirm: true 
-    }, function() {
-      //var row = datagrid.getRowData(rowIndex);
-      $.post("<?php echo base_url() . 'admissions/activate_sess'; ?>", {id : rowIndex}).done(function(data) {
-       window.location = "<?php echo base_url().'admissions'; ?>";
-      });
-    });
-  }
-
-////Function to show form for session editing
-    function get_data(idr) {
-      $.ajax({
-    type: "POST",
-    url: '<?php echo base_url('admissions/get_session_details')?>',
-    dataType : 'json',
-    data: {id: idr},
-    success: function(data){
-
-            var sess1_name = data[0].sess_name;
-            var sess_id = data[0].id;
-            var edit = "Edit"
-            $('[name="sess_name"]').val(sess1_name);
-            $('[name="sess_id"]').val(sess_id);
-            document.getElementById('session_heading').innerHTML = "Edit Session";
-    }
-});
     }
 
-   ///This clears textbox on modal toggle
-    function clear_textbox() {
-    document.getElementById('session_heading').innerHTML = "Add New Session";
-    $('input[type=text]').each(function() {
-        $(this).val('');
-    });
-  }
+    function activate_session_name(rowIndex) {
+      swal({   
+        title: "Are you sure want to Activate?",   
+        text: "",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        cancelButtonText: "Cancel",
+        confirmButtonText: "Proceed",
+        closeOnConfirm: true 
+      }, function() {
+        //var row = datagrid.getRowData(rowIndex);
+        $.post("<?php echo base_url() . 'admissions/activate_sess'; ?>", {id : rowIndex}).done(function(data) {
+         window.location = "<?php echo base_url().'admissions'; ?>";
+        });
+      });
+    }
 
+      ////Function to show form for session editing
+          function get_data(idr) {
+            $.ajax({
+          type: "POST",
+          url: '<?php echo base_url('admissions/get_session_details')?>',
+          dataType : 'json',
+          data: {id: idr},
+          success: function(data){
+
+                  var sess1_name = data[0].sess_name;
+                  var sess_id = data[0].id;
+                  var edit = "Edit"
+                  $('[name="sess_name"]').val(sess1_name);
+                  $('[name="sess_id"]').val(sess_id);
+                  document.getElementById('session_heading').innerHTML = "Edit Session";
+          }
+      });
+          }
+
+         ///This clears textbox on modal toggle
+          function clear_textbox() {
+          document.getElementById('session_heading').innerHTML = "Add New Session";
+          $('input[type=text]').each(function() {
+              $(this).val('');
+          });
+        }
+
+
+       ///This clears textbox on modal toggle
+        function clear_textbox_term() {
+        document.getElementById('term_heading').innerHTML = "Add New Term";
+        $('input[type=text]').each(function() {
+            $(this).val('');
+        });
+      }
+
+
+
+
+          ////Function to show form for session editing
+         function get_term_data(idr1) {
+            $.ajax({
+          type: "POST",
+          url: '<?php echo base_url('admissions/get_term_details')?>',
+          dataType : 'json',
+          data: {id: idr1},
+          success: function(data){
+
+                  var term1_name = data[0].term_name;
+                  var term_id = data[0].id;
+                  $('[name="term_name"]').val(term1_name);
+                  $('[name="term_id"]').val(term_id);
+                  document.getElementById('term_heading').innerHTML = "Edit Term";
+          }
+        });
+          }
+
+
+        function activate_term_name(rowIndex) {
+          swal({   
+            title: "Are you sure want to Activate?",   
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            cancelButtonText: "Cancel",
+            confirmButtonText: "Proceed",
+            closeOnConfirm: true 
+          }, function() {
+            //var row = datagrid.getRowData(rowIndex);
+            $.post("<?php echo base_url() . 'admissions/activate_term'; ?>", {id : rowIndex}).done(function(data) {
+             window.location = "<?php echo base_url().'admissions'; ?>";
+            });
+          });
+        }
+
+
+
+        function delete_term_name(rowIndex) {
+          swal({   
+            title: "Are you sure want to delete this data?",   
+            text: "Deleted data can not be restored!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            cancelButtonText: "Cancel",
+            confirmButtonText: "Proceed",
+            closeOnConfirm: true 
+          }, function() {
+            //var row = datagrid.getRowData(rowIndex);
+            $.post("<?php echo base_url() . 'admissions/delete_term'; ?>", {id : rowIndex}).done(function(data) {
+             window.location = "<?php echo base_url().'admissions'; ?>";
+            });
+          });
+        }
+
+      /////Add Term form begins
+          function validate_term(formData) {
+              var returnData;
+              $('#add-term').disable([".action"]);
+              $("button[title='add_term']").html("Validating data, please wait...");
+              $.ajax({
+                  url: "<?php echo base_url() . 'admissions/validate_term_name'; ?>", async: false, type: 'POST', data: formData,
+                  success: function(data, textStatus, jqXHR) {
+                      returnData = data;
+                  }
+              });
+
+
+              $('#add-term').enable([".action"]);
+              $("button[title='add_term']").html("Save changes");
+              if (returnData != 'success') {
+                  $('#add-term').enable([".action"]);
+                  $("button[title='add_term']").html("Save changes");
+                  $('.form-control-feedback').html('');
+                  $('.form-control-feedback').each(function() {
+                      for (var key in returnData) {
+                          if ($(this).attr('data-field') == key) {
+                              $(this).html(returnData[key]);
+                          }
+                      }
+                  });
+              } else {
+                  return 'success';   
+              }
+          }
+
+          function form_routes_add_term(action) {
+              if (action == 'add_term') {
+                  var formData = $('#add-term').serialize();
+                  if (validate_term(formData) == 'success') {
+                      swal({   
+                          title: "Please check your data",   
+                          text: "",
+                          type: "warning",
+                          showCancelButton: true,
+                          confirmButtonColor: "#DD6B55",
+                          cancelButtonText: "Cancel",
+                          confirmButtonText: "Save",
+                          closeOnConfirm: true 
+                      }, function() {
+                          save_term_name(formData);
+                      });
+                  }
+              } else {
+                  cancel();
+              }
+          }
+
+          function save_term_name(formData) {
+              $("button[title='add_term']").html("Saving data, please wait...");
+              $.post("<?php echo base_url() . 'admissions/add_term_name'; ?>", formData).done(function(data) {
+
+                  window.location = "<?php echo base_url().'admissions'; ?>";
+              });
+          }
+
+
+       ///This clears textbox on modal toggle
+        function clear_textbox_level() {
+        document.getElementById('level_heading').innerHTML = "Add New Level";
+        $('input[type=text]').each(function() {
+            $(this).val('');
+        });
+      }
+
+
+
+
+          ////Function to show form for session editing
+         function get_level_data(idr1) {
+            $.ajax({
+          type: "POST",
+          url: '<?php echo base_url('admissions/get_level_details')?>',
+          dataType : 'json',
+          data: {id: idr1},
+          success: function(data){
+
+                  var level1_name = data[0].level_name;
+                  var level1_rank = data[0].level_rank;
+                  var level_id = data[0].id;
+                  $('[name="level_name"]').val(level1_name);
+                  $('[name="level_rank"]').val(level1_rank);
+                  $('[name="level_id"]').val(level_id);
+                  document.getElementById('level_heading').innerHTML = "Edit Level";
+          }
+        });
+          }
+
+
+        function activate_level_name(rowIndex) {
+          swal({   
+            title: "Are you sure want to Activate?",   
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            cancelButtonText: "Cancel",
+            confirmButtonText: "Proceed",
+            closeOnConfirm: true 
+          }, function() {
+            //var row = datagrid.getRowData(rowIndex);
+            $.post("<?php echo base_url() . 'admissions/activate_level'; ?>", {id : rowIndex}).done(function(data) {
+             window.location = "<?php echo base_url().'admissions'; ?>";
+            });
+          });
+        }
+
+
+
+        function delete_level_name(rowIndex) {
+          swal({   
+            title: "Are you sure want to delete this data?",   
+            text: "Deleted data can not be restored!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            cancelButtonText: "Cancel",
+            confirmButtonText: "Proceed",
+            closeOnConfirm: true 
+          }, function() {
+            //var row = datagrid.getRowData(rowIndex);
+            $.post("<?php echo base_url() . 'admissions/delete_level'; ?>", {id : rowIndex}).done(function(data) {
+             window.location = "<?php echo base_url().'admissions'; ?>";
+            });
+          });
+        }
+
+      /////Add Term form begins
+          function validate_level(formData) {
+              var returnData;
+              $('#add-level').disable([".action"]);
+              $("button[title='add_level']").html("Validating data, please wait...");
+              $.ajax({
+                  url: "<?php echo base_url() . 'admissions/validate_level_name'; ?>", async: false, type: 'POST', data: formData,
+                  success: function(data, textStatus, jqXHR) {
+                      returnData = data;
+                  }
+              });
+
+
+              $('#add-level').enable([".action"]);
+              $("button[title='add_level']").html("Save changes");
+              if (returnData != 'success') {
+                  $('#add-level').enable([".action"]);
+                  $("button[title='add_level']").html("Save changes");
+                  $('.form-control-feedback').html('');
+                  $('.form-control-feedback').each(function() {
+                      for (var key in returnData) {
+                          if ($(this).attr('data-field') == key) {
+                              $(this).html(returnData[key]);
+                          }
+                      }
+                  });
+              } else {
+                  return 'success';   
+              }
+          }
+
+          function form_routes_add_level(action) {
+              if (action == 'add_level') {
+                  var formData = $('#add-level').serialize();
+                  if (validate_level(formData) == 'success') {
+                      swal({   
+                          title: "Please check your data",   
+                          text: "",
+                          type: "warning",
+                          showCancelButton: true,
+                          confirmButtonColor: "#DD6B55",
+                          cancelButtonText: "Cancel",
+                          confirmButtonText: "Save",
+                          closeOnConfirm: true 
+                      }, function() {
+                          save_level_name(formData);
+                      });
+                  }
+              } else {
+                  cancel();
+              }
+          }
+
+          function save_level_name(formData) {
+              $("button[title='add_level']").html("Saving data, please wait...");
+              $.post("<?php echo base_url() . 'admissions/add_level_name'; ?>", formData).done(function(data) {
+
+                  window.location = "<?php echo base_url().'admissions'; ?>";
+              });
+          }
 </script> 
