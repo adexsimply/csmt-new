@@ -25,6 +25,7 @@ class Admissions extends Base_Controller {
 		$this->data['session_list'] = $this->admissions_m->get_session_list();
 		$this->data['term_list'] = $this->admissions_m->get_term_list();
 		$this->data['level_list'] = $this->admissions_m->get_level_list();
+		$this->data['club_lists'] = $this->admissions_m->get_club_list();
 		$this->data['category_list'] = $this->admissions_m->get_category_list();
 		$this->data['arm_list'] = $this->admissions_m->get_arm_list();
 		$this->data['level_group_lists'] = $this->admissions_m->get_level_group_list();
@@ -299,6 +300,57 @@ public function validate_arm_name()
         $this->load->model('admissions_m');
         $arm_list = $this->admissions_m->get_arm_by_id();
 		echo "[".json_encode($arm_list)."]";		 
+	}
+
+
+
+
+
+
+
+public function validate_club_name()
+	{
+		$rules = [
+			[
+				'field' => 'club_name',
+				'label' => 'Club Name',
+				'rules' => 'trim|required|is_unique[session_list.sess_name]'
+			]
+		];
+
+		$this->form_validation->set_rules($rules);
+		if ($this->form_validation->run()) {
+			header("Content-type:application/json");
+			echo json_encode('success');
+		} else {
+			header("Content-type:application/json");
+			echo json_encode($this->form_validation->get_all_errors());
+		}
+
+	}
+
+	public function add_club_name()
+        {                
+
+        	$this->load->model('admissions_m');
+        	$this->admissions_m->create_club_name();
+
+			header('Content-Type: application/json');
+	    	echo json_encode('success');
+        }
+
+
+	public function delete_club()
+	{
+		$id = $this->input->post('id');
+		$this->db->delete('club_list', array('id' => $id));
+	}
+
+	public function get_club_details() {
+
+        $this->load->model('admissions_m');
+        $club_list = $this->admissions_m->get_club_by_id();
+		echo "[".json_encode($club_list)."]";		 
 	}
 
 
