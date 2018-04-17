@@ -246,7 +246,7 @@ class Admissions_m extends CI_Model {
 
         $get_club = $this->db->select('c.*,u.username')->from('club_list c')->join('users as u', 'c.added_by=u.id', 'left')->order_by('id', 'DESC')->get();
 		$club_list = $get_club->result();
-		return $arm_club;
+		return $club_list;
 	}
 
 
@@ -272,7 +272,7 @@ class Admissions_m extends CI_Model {
         //If it's a new request
         else {
         $data = array(
-            'club_name' => $this->input->post('club_name')
+            'club_name' => $this->input->post('club_name'),
             'added_by' => $user_id
         );
         $insert = $this->db->insert('club_list', $data);
@@ -280,18 +280,12 @@ class Admissions_m extends CI_Model {
         }//End of New Request
     }
 
-    function get_level_group_list(){
-        $get_level_group = $this->db->select('*')->from('level_group_list')->get();
-        $level_group_list = $get_level_group->result();
-        return $level_group_list;
-    }
 
-
-	function get_arm_by_id(){
+	function get_club_by_id(){
 		$id = $this->input->post('id');
-		$get_arm = $this->db->select('a.*,g.group_name')->from('arm_list a')->join('level_group_list as g', 'a.level_group=g.id', 'left')->where('a.id', $id)->get();
-		$arm_list = $get_arm->row();
-		return $arm_list;
+        $get_club = $this->db->select('*')->from('club_list')->where('id', $id)->get();
+		$club_list = $get_club->row();
+		return $club_list;
 	}
 
 		

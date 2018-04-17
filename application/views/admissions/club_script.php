@@ -2,8 +2,8 @@
   
 
        ///This clears textbox on modal toggle
-        function clear_textbox_category() {
-        document.getElementById('category_heading').innerHTML = "Add New Category";
+        function clear_textbox_club() {
+        document.getElementById('club_heading').innerHTML = "Add New Club";
         $('input[type=text]').each(function() {
             $(this).val('');
         });
@@ -13,25 +13,25 @@
 
 
           ////Function to show form for session editing
-         function get_category_data(idr1) {
+         function get_club_data(idr1) {
             $.ajax({
           type: "POST",
-          url: '<?php echo base_url('admissions/get_category_details')?>',
+          url: '<?php echo base_url('admissions/get_club_details')?>',
           dataType : 'json',
           data: {id: idr1},
           success: function(data){
 
-                  var category1_name = data[0].category_name;
-                  var category_id = data[0].id;
-                  $('[name="category_name"]').val(category1_name);
-                  $('[name="category_id"]').val(category_id);
-                  document.getElementById('category_heading').innerHTML = "Edit Category";
+                  var club_name = data[0].club_name;
+                  var club_id = data[0].id;
+                  $('[name="club_name"]').val(club_name);
+                  $('[name="club_id"]').val(club_id);
+                  document.getElementById('club_heading').innerHTML = "Edit Club";
           }
         });
           }
 
 
-        function delete_category_name(rowIndex) {
+        function delete_club_name(rowIndex) {
           swal({   
             title: "Are you sure want to delete this data?",   
             text: "Deleted data can not be restored!",
@@ -43,30 +43,30 @@
             closeOnConfirm: true 
           }, function() {
             //var row = datagrid.getRowData(rowIndex);
-            $.post("<?php echo base_url() . 'admissions/delete_category'; ?>", {id : rowIndex}).done(function(data) {
+            $.post("<?php echo base_url() . 'admissions/delete_club'; ?>", {id : rowIndex}).done(function(data) {
              window.location = "<?php echo base_url().'admissions'; ?>";
             });
           });
         }
 
       /////Add Term form begins
-          function validate_category(formData) {
+          function validate_club(formData) {
               var returnData;
-              $('#add-category').disable([".action"]);
-              $("button[title='add_category']").html("Validating data, please wait...");
+              $('#add-club').disable([".action"]);
+              $("button[title='add_club']").html("Validating data, please wait...");
               $.ajax({
-                  url: "<?php echo base_url() . 'admissions/validate_category_name'; ?>", async: false, type: 'POST', data: formData,
+                  url: "<?php echo base_url() . 'admissions/validate_club_name'; ?>", async: false, type: 'POST', data: formData,
                   success: function(data, textStatus, jqXHR) {
                       returnData = data;
                   }
               });
 
 
-              $('#add-category').enable([".action"]);
-              $("button[title='add_category']").html("Save changes");
+              $('#add-club').enable([".action"]);
+              $("button[title='add_club']").html("Save changes");
               if (returnData != 'success') {
-                  $('#add-category').enable([".action"]);
-                  $("button[title='add_category']").html("Save changes");
+                  $('#add-club').enable([".action"]);
+                  $("button[title='add_club']").html("Save changes");
                   $('.form-control-feedback').html('');
                   $('.form-control-feedback').each(function() {
                       for (var key in returnData) {
@@ -80,10 +80,10 @@
               }
           }
 
-          function form_routes_add_category(action) {
-              if (action == 'add_category') {
-                  var formData = $('#add-category').serialize();
-                  if (validate_category(formData) == 'success') {
+          function form_routes_add_club(action) {
+              if (action == 'add_club') {
+                  var formData = $('#add-club').serialize();
+                  if (validate_club(formData) == 'success') {
                       swal({   
                           title: "Please check your data",   
                           text: "",
@@ -94,7 +94,7 @@
                           confirmButtonText: "Save",
                           closeOnConfirm: true 
                       }, function() {
-                          save_category_name(formData);
+                          save_club_name(formData);
                       });
                   }
               } else {
@@ -102,9 +102,9 @@
               }
           }
 
-          function save_category_name(formData) {
-              $("button[title='add_category']").html("Saving data, please wait...");
-              $.post("<?php echo base_url() . 'admissions/add_category_name'; ?>", formData).done(function(data) {
+          function save_club_name(formData) {
+              $("button[title='add_club']").html("Saving data, please wait...");
+              $.post("<?php echo base_url() . 'admissions/add_club_name'; ?>", formData).done(function(data) {
 
                   window.location = "<?php echo base_url().'admissions'; ?>";
               });
