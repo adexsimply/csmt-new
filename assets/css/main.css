@@ -9326,7 +9326,7 @@ legend:before {
 }
 
 .nav.smaller.nav-tabs .nav-link {
-  padding: 0.7em 1.1em;
+  padding: 0.3em 0.4em;
 }
 
 .nav.smaller.nav-pills .nav-link {
@@ -9410,7 +9410,7 @@ legend:before {
 
 .nav-tabs .nav-item {
   margin-bottom: 0px;
-  margin-right: 1rem;
+  margin-right: 0.2rem;
 }
 
 .nav-tabs .nav-link {
@@ -14258,8 +14258,8 @@ body.with-content-panel .content-box {
 }
 
 .element-box .os-tabs-controls .nav, .invoice-w .os-tabs-controls .nav, .big-error-w .os-tabs-controls .nav {
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 0rem;
+  padding-right: 0rem;
 }
 
 .element-box .centered-header, .invoice-w .centered-header, .big-error-w .centered-header {
