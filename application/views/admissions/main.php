@@ -29,19 +29,27 @@
                         <div class="os-tabs-controls">
                           <ul class="nav nav-tabs smaller">
                             <li class="nav-item">
-                              <a class="nav-link active" data-toggle="tab" href="#tab_academicSession">Academic Session setup</a>
+                              <a class="nav-link active" data-toggle="tab" href="#tab_academicSession">Academic Session</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link " data-toggle="tab" href="#tab_termSetup">Academic Term setup</a>
+                              <a class="nav-link " data-toggle="tab" href="#tab_termSetup">Academic Term</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link " data-toggle="tab" href="#tab_levelSetup">Academic Level setup</a>
+                              <a class="nav-link " data-toggle="tab" href="#tab_levelSetup">Academic Level</a>
                             </li>
                           
                             <li class="nav-item">
-                              <a class="nav-link " data-toggle="tab" href="#tab_categorySetup">Students Category setup</a>
+                              <a class="nav-link " data-toggle="tab" href="#tab_categorySetup">Students Category</a>
+                            </li>
+                          
+                            <li class="nav-item">
+                              <a class="nav-link " data-toggle="tab" href="#tab_armSetup">Class Arm</a>
                             </li>
 
+                          
+                            <li class="nav-item">
+                              <a class="nav-link " data-toggle="tab" href="#tab_clubSetup">Club</a>
+                            </li>
                             <li class="nav-item">
                               <a class="nav-link " data-toggle="tab" href="#tab_withdraw">Withdraw Student</a>
                             </li>
@@ -87,9 +95,9 @@
                               					                                            <label for="" >Session Name</label>
                                                                       <input type="text" class="form-control" hidden="" name="sess_id" placeholder=" Example 2014 / 2015">
                               					                                            <input type="text" class="form-control" name="sess_name" id="sess_name11" placeholder=" Example 2014 / 2015">
+                                                                                  <div style="color: #ff0000;" class="form-control-feedback" data-field="sess_name"></div>
                               					                                          </div>
                               					                                          <div class="col-md-5"></div>
-                                                                                  <div style="color: #ff0000;" class="form-control-feedback" data-field="sess_name"></div>
                               					                                        </div>
                               					                                                             
                               					                                    </div>
@@ -149,97 +157,8 @@
                             </div>
                           </div>
 
-
-                          <div class="tab-pane" id="tab_termSetup">
-                            <div class="tablo-with-chart">
-                              <div class="row">
-                                <div class="col-sm-12 col-xxl-12">
-                                  <div class="tablos">
-                                      <div class="element-box">
-                                        <div class="row">                        
-                                          <div class="col-md-12 mt-5">
-                                            <h5 >Term List
-                                               <button class="btn btn-outline-primary pull-right" data-target="#termModal" data-toggle="modal" onclick="clear_textbox_term()" type="button">Add Term</button>
-                                               <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="termModal" role="dialog" tabindex="-1">
-                                                  <div class="modal-dialog modal-lg px-5" role="document">
-                                                    <form id="add-term">
-                                                        <div class="modal-content">
-                                                          <div class="modal-header">
-                                                          <h5 class="modal-title" id="exampleModalLabel">
-                                                            <span id="term_heading"></span> 
-                                                          </h5>
-                                                          <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
-                                                          </div>
-                                                          <div class="modal-body ">
-                                                                            <div class="element-box">
-                                                                                <div class="row">
-                                                                                  <div class="col-md-2"></div>
-                                                                                  <div class="col-md-7">
-                                                                                    <label for="" >Term Name</label>
-                                                                      <input type="text" class="form-control" hidden="" name="term_id" placeholder=" Example 2014 / 2015">
-                                                                                    <input type="text" class="form-control" name="term_name"  placeholder=" E.g First Term">
-                                                                                  </div>
-                                                                                  <div class="col-md-5"></div>
-                                                                                  <div style="color: #ff0000;" class="form-control-feedback" data-field="term_name"></div>
-                                                                                </div>
-                                                                                                     
-                                                                            </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                            <button class="btn btn-secondary" data-dismiss="modal" type="button"> Cancel</button><button class="btn btn-primary" type="button" title="add_term" onclick="form_routes_add_term('add_term')">Confirm</button>
-                                                            </div>
-                                                       </div>
-                                                    </form>
-                                                  </div>
-                                               </div>
-                                            </h5>
-                                            <div class="table-responsive">
-                                              <table class="table table-lightborder">
-                                                <thead>
-                                                  <td>S/N</td>
-                                                  <td>Session Name</td>
-                                                  <td>Session Status</td>
-                                                  <td>Date Added</td>
-                                                  <td>Added By</td>
-                                                  <td>Action</td>
-                                                  
-                                                </thead>
-                                                <tbody>                                                  
-                                                  <?php 
-                                                  $i_term = 1;
-                                                  foreach ($term_list as $terms) { 
-                                                    $term_status = $terms->term_status;
-                                                    ?>
-                                                  <tr>
-                                                    <td><?php echo $i_term; ?></td>
-                                                    <td><?php echo $terms->term_name; ?></td>
-                                                    <td>
-                                                      <?php if($term_status=='1') { ?><button class="btn btn-success"><i class="icon-check mr-1"></i>Current Term</button></td>
-                                                      <?php } else { ?><button class="btn btn-info text-white" onclick="activate_term_name('<?php echo $terms->id;?>')"><i class="icon-check mr-1"></i>Activate Term</button></td>
-                                                      <?php } ?>
-                                                    <td><?php echo $terms->date_added; ?></td>
-                                                    <td><?php echo $terms->username; ?></td>
-                                                    <td>                                                    
-                                                      <button class="btn btn-danger" title="Delete" onclick="delete_term_name('<?php echo $terms->id;?>')"><i class="os-icon os-icon-ui-15"></i></button>
-
-
-                                                      <button class="btn btn-info text-white" onclick="get_term_data('<?php echo $terms->id; ?>')" title="Edit2" data-target="#termModal" data-toggle="modal"  ><i class="os-icon os-icon-ui-49"></i></button>
-
-                                                    </td>
-                                                  </tr>
-                                                  <?php $i_term++;
-                                                   } ?>
-                                                </tbody>
-                                              </table>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+  
+                          <?php $this->load->view('admissions/term'); ?>
 
                           <div class="tab-pane" id="tab_levelSetup">
                             <div class="tablo-with-chart">
@@ -269,10 +188,11 @@
                                                                       <label for="" >Level Name</label>
                                                                       <input type="text" class="form-control" hidden="" name="level_id" placeholder=" Example JSS1">
                                                                       <input type="text" class="form-control" name="level_name"  placeholder=" Example JSS1">
+                                                                    <div style="color: #ff0000;" class="form-control-feedback" data-field="level_name"></div>
                                                                       <label for="" >Level Name</label>
                                                                       <input type="text" class="form-control" name="level_rank"  placeholder=" Example 1">
+                                                                    <div style="color: #ff0000;" class="form-control-feedback" data-field="level_rank"></div>
                                                                     </div>
-                                                                    <div style="color: #ff0000;" class="form-control-feedback" data-field="level_name"></div>
                                                                     <div class="col-md-5"></div>
                                                                   </div>              
                                                               </div>
@@ -305,7 +225,7 @@
                                                     <td><?php echo $levels->level_name;?></td>
                                                     <td><?php echo $levels->level_rank; ?></td>
                                                     <td><?php echo $levels->date_added; ?></td>
-                                                    <td><?php echo $levels->added_by; ?></td>
+                                                    <td><?php echo $levels->username; ?></td>
                                                     <td>
                                                       <button class="btn btn-danger" title="Delete" onclick="delete_level_name('<?php echo $levels->id;?>')"><i class="os-icon os-icon-ui-15"></i></button>
                                                       <button class="btn btn-info text-white" title="Edit" onclick="get_level_data('<?php echo $levels->id; ?>')" data-target="#levelModal" data-toggle="modal"  ><i class="os-icon os-icon-ui-49"></i></button>
@@ -333,57 +253,70 @@
                               <div class="row">
                                 <div class="col-sm-12 col-xxl-12">
                                   <div class="tablos">
-                                      <h6 class="element-header">
-                                        Create New Category
-                                      </h6>
-                                     
-                                      <div class="element-box">
-                                        <form action="">
-                                          <div class="row">
-                                            <div class="col-md-2"></div>
-                                            <div class="col-md-7">
-                                              <label for="" >Category Name</label>
-                                              <input type="text" class="form-control" placeholder=" E.g day student">
-                                              <button class="btn btn-success mt-3">Add Category</button>
-                                            </div>
-                                            <div class="col-md-5"></div>
-                                          </div>
-                                            
-                                        </form>                      
-                                      </div>
                                       <div class="element-box">
                                         <div class="row">                        
                                           <div class="col-md-12 mt-5">
-                                            <h5 >Academic level List</h5>
+                                            <h5 >Category List
+                                               <button class="btn btn-outline-primary pull-right" data-target="#categoryModal" data-toggle="modal" onclick="clear_textbox_category()" type="button">Add Category</button>
+                                               <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="categoryModal" role="dialog" tabindex="-1">
+                                                  <div class="modal-dialog modal-lg px-5" role="document">
+                                                    <form id="add-category">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                          <h5 class="modal-title" id="exampleModalLabel">
+                                                            <span id="category_heading"></span> 
+                                                          </h5>
+                                                          <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
+                                                          </div>
+                                                          <div class="modal-body ">
+                                                              <div class="element-box">
+                                                                  <div class="row">
+                                                                    <div class="col-md-2"></div>
+                                                                    <div class="col-md-7">
+                                                                      <label for="" >Category Name</label>
+                                                                      <input type="text" class="form-control" hidden="" name="category_id" placeholder=" Example JSS1">
+                                                                      <input type="text" class="form-control" name="category_name"  placeholder=" Example Boarding">
+                                                                    <div style="color: #ff0000;" class="form-control-feedback" data-field="category_name"></div>
+                                                                    </div>
+                                                                    <div class="col-md-5"></div>
+                                                                  </div>              
+                                                              </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button class="btn btn-secondary" data-dismiss="modal" type="button"> Cancel</button><button class="btn btn-primary" type="button" title="add_category" onclick="form_routes_add_category('add_category')">Confirm</button>
+                                                            </div>
+                                                       </div>
+                                                    </form>
+                                                  </div>
+                                               </div>
+                                             </h5>
                                             <div class="table-responsive">
                                               <table class="table table-lightborder">
                                                 <thead>
                                                   <td>S/N</td>
                                                   <td>Category Name</td>
                                                   <td>Date Added</td>
+                                                  <td>Added By</td>
                                                   <td>Action</td>
                                                   
                                                 </thead>
                                                 <tbody>
+                                                  <?php 
+                                                  $i_category = 1;
+                                                  foreach ($category_list as $categorys) { 
+                                                    ?>
                                                   <tr>
-                                                    <td>1</td>
-                                                    <td>Day Student</td>
-                                                    <td>16-08-2017 11:19am</td>
+                                                    <td><?php echo $i_category; ?></td>
+                                                    <td><?php echo $categorys->category_name; ?></td>
+                                                    <td><?php echo $categorys->date_added; ?></td>
+                                                    <td><?php echo $categorys->username; ?></td>
                                                     <td>
-                                                      <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
-                                                      
+                                                      <button class="btn btn-danger" title="Delete" onclick="delete_category_name('<?php echo $categorys->id;?>')"><i class="os-icon os-icon-ui-15"></i></button>
+                                                      <button class="btn btn-info text-white" title="Edit" onclick="get_category_data('<?php echo $categorys->id; ?>')" data-target="#categoryModal" data-toggle="modal"  ><i class="os-icon os-icon-ui-49"></i></button>
                                                     </td>
                                                   </tr>
-                                                  <tr>
-                                                    <td>2</td>
-                                                    <td>Boarding Student</td>
-                                                   
-                                                    <td>05-09-2016 4:14pm</td>
-                                                    <td>
-                                                      <button class="btn btn-danger" title="Delete"><i class="os-icon os-icon-ui-15"></i></button>
-                                                     
-                                                    </td>
-                                                  </tr>
+                                                  <?php $i_category++;
+                                                   } ?>
                                                   
                                                   
                                                 </tbody>
@@ -398,6 +331,12 @@
                               </div>
                             </div>
                           </div>
+
+
+                          <?php $this->load->view('admissions/arm'); ?> 
+
+                          <?php $this->load->view('admissions/club'); ?>  
+
 
                           <div class="tab-pane" id="tab_withdraw">
                             <div class="tablo-with-chart">
@@ -991,3 +930,6 @@
               });
           }
 </script> 
+<?php $this->load->view('admissions/category_script'); ?>
+<?php $this->load->view('admissions/arm_script'); ?>
+<?php $this->load->view('admissions/club_script'); ?>

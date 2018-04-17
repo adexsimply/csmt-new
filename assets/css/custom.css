@@ -21,3 +21,7 @@
 .f-12{
 	font-size: 12px;
 }
+.form-control-feedback {
+	font-size: 12px;
+	color: #f80431;
+}
