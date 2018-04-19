@@ -23,6 +23,8 @@
     <link href="<?php echo base_url(); ?>assets/icon_fonts_assets/picons-thin/style.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/custom.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   </head>
   <body>
     <div class="all-wrapper menu-side menu-top solid-bg-all">

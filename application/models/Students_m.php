@@ -1,11 +1,11 @@
 <?php
 class Students_m extends CI_Model {
 
-	public function get_session_list() {
+	public function get_student_list() {
 
-		$get_session = $this->db->select('s.*,u.username')->from('session_list s')->join('users as u', 's.added_by=u.id', 'left')->order_by('id', 'DESC')->get();
-		$session_list = $get_session->result();
-		return $session_list;
+		$get_students = $this->db->select('*')->from('students')->where('1=1')->get();
+		$student_list = $get_students->result();
+		return $student_list;
 		
 	}
 
