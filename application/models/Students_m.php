@@ -1,5 +1,5 @@
 <?php
-class Admissions_m extends CI_Model {
+class Students_m extends CI_Model {
 
 	public function get_session_list() {
 
