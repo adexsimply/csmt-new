@@ -45,6 +45,10 @@
                             <li class="nav-item">
                               <a class="nav-link " data-toggle="tab" href="#tab_armSetup">Class Arm</a>
                             </li>
+                          
+                            <li class="nav-item">
+                              <a class="nav-link " data-toggle="tab" href="#tab_classSetup">Class</a>
+                            </li>
 
                           
                             <li class="nav-item">
@@ -334,6 +338,8 @@
 
 
                           <?php $this->load->view('admissions/arm'); ?> 
+
+                          <?php $this->load->view('admissions/class'); ?> 
 
                           <?php $this->load->view('admissions/club'); ?>  
 
@@ -932,4 +938,5 @@
 </script> 
 <?php $this->load->view('admissions/category_script'); ?>
 <?php $this->load->view('admissions/arm_script'); ?>
+<?php $this->load->view('admissions/class_script'); ?>
 <?php $this->load->view('admissions/club_script'); ?>
