@@ -84,11 +84,35 @@ class Admissions extends Base_Controller {
 	}
 	public function activate_sess()
 	{
+		$id = $this->input->post('id');
+        //Capture User id
+        $user_id = $this->session->userdata('active_user')->id; 
+		///////////////////////////////////
 		$this->db->set('session_status', '0');
 		$this->db->update('session_list');
 		$this->db->set('session_status', '1');
 		$this->db->where('id', $this->input->post('id'));
 		$this->db->update('session_list');
+		//////get class list
+		$query_get_class = $this->db->select('c.*,u.username,a.arm_name,l.level_name')->from('class_list c')->join('users as u', 'c.added_by=u.id', 'left')->join('level_list as l', 'c.level_id=l.id', 'left')->join('arm_list as a', 'c.arm_id=a.id', 'left')->order_by('id', 'DESC')->get();
+		$class_lists = $query_get_class->result();
+		echo json_encode($class_lists);
+		foreach ($class_lists as $classes)
+		{
+			$class_id = $classes->id;
+
+			$query_check_sess_inst = $this->db->select('*')->from('session_class')->where('session_id', $id)->where('class_id', $class_id)->get();
+			$num_check_sess_inst = $query_check_sess_inst->num_rows();
+			if ($num_check_sess_inst=='0')
+			{ 
+		        $data_sess = array(
+		            'class_id' => $class_id,
+		            'added_by' => $user_id,
+		            'session_id' => $id
+		        );
+				$query_create_sess_class = $this->db->insert('session_class', $data_sess);
+			}
+		}
 	}
 
 	public function get_session_details() {

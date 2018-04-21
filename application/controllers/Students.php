@@ -20,26 +20,11 @@ class Students extends Base_Controller {
 	 */
 	public function index ()
 	{		
-<<<<<<< HEAD
 		$this->load->model('students_m');
 		$this->data['title'] = 'Students';
 		$this->data['student_lists'] = $this->students_m->get_student_list();
 		//$this->data['childview'] = 'dashboard/main';
 		$this->load->view('students/main', $this->data);
-=======
-		$this->load->model('admissions_m');
-		$this->data['title'] = 'Admissions';
-		$this->data['session_list'] = $this->admissions_m->get_session_list();
-		$this->data['term_list'] = $this->admissions_m->get_term_list();
-		$this->data['level_list'] = $this->admissions_m->get_level_list();
-		$this->data['club_lists'] = $this->admissions_m->get_club_list();
-		$this->data['category_list'] = $this->admissions_m->get_category_list();
-		$this->data['arm_list'] = $this->admissions_m->get_arm_list();
-		$this->data['class_lists'] = $this->admissions_m->get_class_list();
-		$this->data['level_group_lists'] = $this->admissions_m->get_level_group_list();
-		//$this->data['childview'] = 'dashboard/main';
-		$this->load->view('admissions/main', $this->data);
->>>>>>> 6f4e8b47c4007545fe5121bf966dc0267cd642d0
 	}
 	//Isolating term view
 	public function term ()
