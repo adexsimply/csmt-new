@@ -20,12 +20,24 @@
                                                           <div class="modal-body ">
                                                               <div class="element-box">
                                                                 <div class="row">
+                                                                    <div class="col-md-3">Group Name</div>
+                                                                    <div class="col-md-7">
+                                                                      <input type="text" class="form-control" hidden="" name="class_id" placeholder=" Example JSS1">
+                                                                      <?php foreach($level_group_lists as $level_group_list ) { ?>
+                                                                        <div class="form-check">
+                                                                          <label class="form-check-label">
+                                                                            <input type="radio" class="form-check-input" name="group_name" id="<?php echo $level_group_list->id; ?>" value="<?php echo $level_group_list->id; ?>"><?php echo $level_group_list->group_name; ?>
+                                                                          </label>
+                                                                        </div>
+                                                                        <?php } ?>
+                                                                    </div>
                                                                     <div class="col-md-3">Level Name</div>
                                                                     <div class="col-md-7">
                                                                       <input type="text" class="form-control" hidden="" name="class_id" placeholder=" Example JSS1">
                                                                       <?php foreach($level_list as $level_lists ) { ?>
                                                                         <div class="form-check">
                                                                           <label class="form-check-label">
+
                                                                             <input type="radio" class="form-check-input" name="level_name" id="<?php echo $level_lists->level_name; ?>" value="<?php echo $level_lists->id; ?>"><?php echo $level_lists->level_name; ?>
                                                                           </label>
                                                                         </div>
@@ -37,6 +49,7 @@
                                                                         <div class="form-check">
                                                                           <label class="form-check-label">
                                                                             <input type="radio" class="form-check-input" name="arm_name" id="<?php echo $arm_lists->arm_name; ?>" value="<?php echo $arm_lists->id; ?>"><?php echo $arm_lists->arm_name."(".$arm_lists->group_name.")"; ?>
+                                                                            <input type="text" name="group_id" hidden="" value="<?php echo $arm_lists->level_group; ?>">
                                                                           </label>
                                                                         </div>
                                                                         <?php } ?>

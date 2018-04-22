@@ -1,13 +1,69 @@
 <?php
 class Students_m extends CI_Model {
 
-	public function get_student_list() {
+    public function get_student_list() {
 
-		$get_students = $this->db->select('*')->from('students')->where('1=1')->get();
-		$student_list = $get_students->result();
-		return $student_list;
+        $get_students = $this->db->select('s.*,c.*,l.level_name,a.arm_name,s.id as stud_id')->from('students s')->join('class_list as c', 's.class_id=c.id', 'left')->join('level_list as l', 'c.level_id=l.id', 'left')->join('arm_list as a', 'c.arm_id=a.id', 'left')->order_by('s.id', 'ASC')->get();
+        $student_list = $get_students->result();
+        return $student_list;
+        
+    }
+
+	public function get_group_list() {
+
+		$get_group_list = $this->db->select('*')->from('level_group_list')->get();
+		$group_list = $get_group_list->result();
+		return $group_list;
 		
 	}
+
+    function get_class_by_group(){
+        $id = $this->input->post('id');
+        $get_class = $this->db->select('c.*,u.username,a.arm_name,l.level_name')->from('class_list c')->join('users as u', 'c.added_by=u.id', 'left')->join('level_list as l', 'c.level_id=l.id', 'left')->join('arm_list as a', 'c.arm_id=a.id', 'left')->where('c.level_group', $id)->order_by('l.level_name', 'ASC')->get();
+        $class_list = $get_class->result();
+        return $class_list;
+    }
+
+    function get_student_by_id(){
+        $id = $this->input->post('id');
+        $get_student = $this->db->select('s.*,u.username,c.*,cl.club_name,l.level_name,a.arm_name,se.sess_name,ca.category_name,g.group_name,s.id as stud_id')->from('students s')->join('users as u', 's.added_by=u.id', 'left')->join('class_list as c', 's.class_id=c.id', 'left')->join('level_list as l', 'c.level_id=l.id', 'left')->join('arm_list as a', 'c.arm_id=a.id', 'left')->join('club_list as cl', 's.club_id=cl.id', 'left')->join('session_list as se', 's.session_admission=se.id', 'left')->join('category_list as ca', 's.category_id=ca.id', 'left')->join('level_group_list as g', 's.group_id=g.id', 'left')->where('s.id', 1)->get();
+        $student_list = $get_student->row();
+        return $student_list;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public function create_session_name()

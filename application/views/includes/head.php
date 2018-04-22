@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CSMT - Dashboard </title>
+    <title>CSMT - <?php echo $title; ?> </title>
     <meta charset="utf-8">
     <meta content="ie=edge" http-equiv="x-ua-compatible">
     <meta content="csmt dashboard" name="description">

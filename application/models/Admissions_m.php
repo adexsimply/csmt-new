@@ -305,12 +305,19 @@ class Admissions_m extends CI_Model {
     {
         $this->load->helper('url');
         //Capture User id
-        $user_id = $this->session->userdata('active_user')->id; 
+        $user_id = $this->session->userdata('active_user')->id;
+        if (substr($this->input->post('level_name2'), 0,3)=='JSS'){
+            $group_id = 1;
+        }
+        else {
+            $group_id =2;
+        } 
         //If it's an update request(id)       
         if ($this->input->post('class_id'))
         {    
         $data_class = array(
             'level_id' => $this->input->post('level_name'),
+            'level_group' => $this->input->post('group_name'),
             'arm_id' => $this->input->post('arm_name')
         );         
         //$query_check_rank = $this->db->select('*')->from('level_list')->where('level_rank', $this->input->post('level_rank'))->get();
@@ -325,6 +332,7 @@ class Admissions_m extends CI_Model {
         else {
         $data = array(
             'level_id' => $this->input->post('level_name'),
+            'level_group' => $this->input->post('group_name'),
             'arm_id' => $this->input->post('arm_name'),
             'added_by' => $user_id
         );

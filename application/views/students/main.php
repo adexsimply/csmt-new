@@ -50,12 +50,12 @@
 								  <td ><?php echo $i_student; ?></td>
 								  <td><?php echo $student->student_id; ?></td>
 								  <td><?php echo $student->surname." ".$student->other_names; ?></td>
-								  <td><?php echo $student->level_name.$student->class_arm; ?></td>
+								  <td><?php echo $student->level_name.$student->arm_name; ?></td>
 								  <td><?php echo $student->parent_fullname; ?></td>
 								  <td>
-									<a href="#"><i class="os-icon os-icon-ui-49"></i></a>
-									<a class="text-danger" href="#" title="Delete">
-									  <i class="os-icon os-icon-ui-15"></i>
+									<a class="text-danger" href="#" onclick="delete_student_name('<?php echo $student->id;?>')"><i class="os-icon os-icon-ui-15"></i></a>
+									<a href="#" title="Delete" onclick="get_student_data('<?php echo $student->id; ?>')" data-target="#humanitiesModal" data-toggle="modal">
+									  <i class="os-icon os-icon-ui-49"></i>
 									</a>
 
 								  </td>
@@ -98,4 +98,5 @@
 	  
 	  ga('create', 'UA-XXXXXXXX-9', 'auto');
 	  ga('send', 'pageview');
-	</script>
+	</script>	
+<?php $this->load->view('students/student_script'); ?>
