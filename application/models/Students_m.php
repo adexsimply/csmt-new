@@ -3,7 +3,7 @@ class Students_m extends CI_Model {
 
     public function get_student_list() {
 
-        $get_students = $this->db->select('s.*,c.*,l.level_name,a.arm_name,s.id as stud_id')->from('students s')->join('class_list as c', 's.class_id=c.id', 'left')->join('level_list as l', 'c.level_id=l.id', 'left')->join('arm_list as a', 'c.arm_id=a.id', 'left')->order_by('s.id', 'ASC')->get();
+        $get_students = $this->db->select('s.*,c.*,l.level_name,a.arm_name,s.id as stud_id')->from('students s')->join('class_list as c', 's.class_id=c.id', 'left')->join('level_list as l', 'c.level_id=l.id', 'left')->join('arm_list as a', 'c.arm_id=a.id', 'left')->order_by('s.id', 'DESC')->get();
         $student_list = $get_students->result();
         return $student_list;
         
@@ -26,9 +26,110 @@ class Students_m extends CI_Model {
 
     function get_student_by_id(){
         $id = $this->input->post('id');
-        $get_student = $this->db->select('s.*,u.username,c.*,cl.club_name,l.level_name,a.arm_name,se.sess_name,ca.category_name,g.group_name,s.id as stud_id')->from('students s')->join('users as u', 's.added_by=u.id', 'left')->join('class_list as c', 's.class_id=c.id', 'left')->join('level_list as l', 'c.level_id=l.id', 'left')->join('arm_list as a', 'c.arm_id=a.id', 'left')->join('club_list as cl', 's.club_id=cl.id', 'left')->join('session_list as se', 's.session_admission=se.id', 'left')->join('category_list as ca', 's.category_id=ca.id', 'left')->join('level_group_list as g', 's.group_id=g.id', 'left')->where('s.id', 1)->get();
+        $get_student = $this->db->select('s.*,u.username,c.*,cl.club_name,l.level_name,a.arm_name,se.sess_name,ca.category_name,g.group_name,s.id as stud_id')->from('students s')->join('users as u', 's.added_by=u.id', 'left')->join('class_list as c', 's.class_id=c.id', 'left')->join('level_list as l', 'c.level_id=l.id', 'left')->join('arm_list as a', 'c.arm_id=a.id', 'left')->join('club_list as cl', 's.club_id=cl.id', 'left')->join('session_list as se', 's.session_admission=se.id', 'left')->join('category_list as ca', 's.category_id=ca.id', 'left')->join('level_group_list as g', 's.group_id=g.id', 'left')->where('s.id', $id)->get();
         $student_list = $get_student->row();
         return $student_list;
+    }
+
+
+    public function create_student()
+    {
+        $this->load->helper('url');
+
+        //$this->load->model('admissions_m');
+        $current_sess = $this->admissions_m->get_current_session();
+        $current_sess_id = $current_sess->id;
+        //Capture User id
+        $user_id = $this->session->userdata('active_user')->id; 
+        //If it's an update request(id)       
+        if ($this->input->post('id'))
+        {    
+        $data_student = array(
+            'student_id'  => $this->input->post('student_id'),
+            'surname'    => $this->input->post('surname'),
+            'other_names'    => $this->input->post('other_names'),
+            'date_of_birth'  => $this->input->post('dob'),
+            'gender'     => $this->input->post('gender'),
+            'student_address'    => $this->input->post('student_address'),
+            'parent_fullname'    => $this->input->post('parent_fullname'),
+            'state_of_origin'    => $this->input->post('state'),
+            'lga'    => $this->input->post('lga'),
+            'relationship'   => $this->input->post('relationship'),
+            'phone'  => $this->input->post('phone'),
+            'phone_2'    => $this->input->post('phone_2'),
+            'club_id'    => $this->input->post('club'),
+            'house'  => $this->input->post('house'),
+            'session_admission'  => $this->input->post('sess_name'),
+            'class_id'   => $this->input->post('class_name'),
+            'category_id'    => $this->input->post('student_category'),
+            'group_id'   => $this->input->post('class_category'),
+            'blood_group'    => $this->input->post('blood_group'),
+            'genotype'   => $this->input->post('genotype') , 
+            'health_challenge'   => $this->input->post('health_challenge'),
+            'emergency_treatment'    => $this->input->post('emergency'),
+            'school_immune'  => $this->input->post('immunize'),
+            'lab_test'   => $this->input->post('lab_tests'),  
+            'added_by'   => $user_id
+        );         
+        //$query_check_rank = $this->db->select('*')->from('level_list')->where('level_rank', $this->input->post('level_rank'))->get();
+        //$num_rows = $query_check_rank->num_rows();
+        //if ($num_rows=='0' OR  ){
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('students', $data_student); 
+       // }
+         $query_session_class_id = $this->db->select('*')->from('session_class')->where('session_id', $current_sess_id)->where('class_id', $class_name)->get();
+        $session_class_id = $query_session_class_id->row();
+        $data_sess_student  = array(
+            'session_class_id' => $session_class_id->id
+
+        );
+        $this->db->where('student_id', $this->input->post('id'));
+        $this->db->where('student_id', $this->input->post('id'));
+        $this->db->update('session_student_class', $data_sess_student); 
+            
+        }//End of Update
+        //If it's a new request
+        else {
+            $class_name =  $this->input->post('class_name');
+        $data = array(
+            'student_id'  => $this->input->post('student_id'),
+            'surname'    => $this->input->post('surname'),
+            'other_names'    => $this->input->post('other_names'),
+            'date_of_birth'  => $this->input->post('dob'),
+            'gender'     => $this->input->post('gender'),
+            'student_address'    => $this->input->post('student_address'),
+            'parent_fullname'    => $this->input->post('parent_fullname'),
+            'state_of_origin'    => $this->input->post('state'),
+            'lga'    => $this->input->post('lga'),
+            'relationship'   => $this->input->post('relationship'),
+            'phone'  => $this->input->post('phone'),
+            'phone_2'    => $this->input->post('phone_2'),
+            'club_id'    => $this->input->post('club'),
+            'house'  => $this->input->post('house'),
+            'session_admission'  => $this->input->post('sess_name'),
+            'class_id'   => $this->input->post('class_name'),
+            'category_id'    => $this->input->post('student_category'),
+            'group_id'   => $this->input->post('class_category'),
+            'blood_group'    => $this->input->post('blood_group'),
+            'genotype'   => $this->input->post('genotype') , 
+            'health_challenge'   => $this->input->post('health_challenge'),
+            'emergency_treatment'    => $this->input->post('emergency'),
+            'school_immune'  => $this->input->post('immunize'),
+            'lab_test'   => $this->input->post('lab_tests'),  
+            'added_by'   => $user_id
+        );
+        $insert = $this->db->insert('students', $data);
+        $last_id = $this->db->insert_id();
+        $query_session_class_id = $this->db->select('*')->from('session_class')->where('session_id', $current_sess_id)->where('class_id', $class_name)->get();
+        $session_class_id = $query_session_class_id->row();
+        $data_sess_student  = array(
+            'student_id' => $last_id,
+            'session_class_id' => $session_class_id->id
+
+        );
+        $insert_sess_student = $this->db->insert('session_student_class', $data_sess_student); 
+        //return $insert;
+        }//End of New Request
     }
 
 

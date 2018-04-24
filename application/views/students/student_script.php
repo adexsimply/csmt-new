@@ -2,8 +2,8 @@
   
 
        ///This clears textbox on modal toggle
-        function clear_textbox_arm() {
-        document.getElementById('arm_heading').innerHTML = "Add New Arm";
+        function clear_textbox_student() {
+        document.getElementById("add-student").reset();
         $('input[type=text]').each(function() {
             $(this).val('');
         });
@@ -68,6 +68,7 @@
                   /////////////Date
 
 
+                  $('[name="id"]').val(id);
                   $('[name="student_id"]').val(student_id);
                   $('[name="surname"]').val(student_surname);
                   $('[name="other_names"]').val(other_names);
@@ -127,7 +128,7 @@
           }
 
 
-        function delete_arm_name(rowIndex) {
+        function delete_student_name(rowIndex) {
           swal({   
             title: "Are you sure want to delete this data?",   
             text: "Deleted data can not be restored!",
@@ -139,30 +140,30 @@
             closeOnConfirm: true 
           }, function() {
             //var row = datagrid.getRowData(rowIndex);
-            $.post("<?php echo base_url() . 'admissions/delete_arm'; ?>", {id : rowIndex}).done(function(data) {
-             window.location = "<?php echo base_url().'admissions'; ?>";
+            $.post("<?php echo base_url() . 'students/delete_student'; ?>", {id : rowIndex}).done(function(data) {
+             window.location = "<?php echo base_url().'students'; ?>";
             });
           });
         }
 
-      /////Add Term form begins
-          function validate_arm(formData) {
+      /////Add Term Student begins
+          function validate_student(formData) {
               var returnData;
-              $('#add-arm').disable([".action"]);
-              $("button[title='add_arm']").html("Validating data, please wait...");
+              $('#add-student').disable([".action"]);
+              $("button[title='add_student']").html("Validating data, please wait...");
               $.ajax({
-                  url: "<?php echo base_url() . 'admissions/validate_arm_name'; ?>", async: false, type: 'POST', data: formData,
+                  url: "<?php echo base_url() . 'students/validate_student_name'; ?>", async: false, type: 'POST', data: formData,
                   success: function(data, textStatus, jqXHR) {
                       returnData = data;
                   }
               });
 
 
-              $('#add-arm').enable([".action"]);
-              $("button[title='add_arm']").html("Save changes");
+              $('#add-student').enable([".action"]);
+              $("button[title='add_student']").html("Save changes");
               if (returnData != 'success') {
-                  $('#add-arm').enable([".action"]);
-                  $("button[title='add_arm']").html("Save changes");
+                  $('#add-student').enable([".action"]);
+                  $("button[title='add_student']").html("Save changes");
                   $('.form-control-feedback').html('');
                   $('.form-control-feedback').each(function() {
                       for (var key in returnData) {
@@ -176,10 +177,10 @@
               }
           }
 
-          function form_routes_add_arm(action) {
-              if (action == 'add_arm') {
-                  var formData = $('#add-arm').serialize();
-                  if (validate_arm(formData) == 'success') {
+          function form_routes_add_student(action) {
+              if (action == 'add_student') {
+                  var formData = $('#add-student').serialize();
+                  if (validate_student(formData) == 'success') {
                       swal({   
                           title: "Please check your data",   
                           text: "",
@@ -190,7 +191,7 @@
                           confirmButtonText: "Save",
                           closeOnConfirm: true 
                       }, function() {
-                          save_arm_name(formData);
+                          save_student_name(formData);
                       });
                   }
               } else {
@@ -198,11 +199,11 @@
               }
           }
 
-          function save_arm_name(formData) {
-              $("button[title='add_arm']").html("Saving data, please wait...");
-              $.post("<?php echo base_url() . 'admissions/add_arm_name'; ?>", formData).done(function(data) {
+          function save_student_name(formData) {
+              $("button[title='add_student']").html("Saving data, please wait...");
+              $.post("<?php echo base_url() . 'students/add_student_name'; ?>", formData).done(function(data) {
 
-                  window.location = "<?php echo base_url().'admissions'; ?>";
+                  window.location = "<?php echo base_url().'students'; ?>";
               });
           }
 

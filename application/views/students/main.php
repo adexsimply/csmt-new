@@ -53,8 +53,8 @@
 								  <td><?php echo $student->level_name.$student->arm_name; ?></td>
 								  <td><?php echo $student->parent_fullname; ?></td>
 								  <td>
-									<a class="text-danger" href="#" onclick="delete_student_name('<?php echo $student->id;?>')"><i class="os-icon os-icon-ui-15"></i></a>
-									<a href="#" title="Delete" onclick="get_student_data('<?php echo $student->id; ?>')" data-target="#humanitiesModal" data-toggle="modal">
+									<a class="text-danger" href="#" onclick="delete_student_name('<?php echo $student->stud_id;?>')"><i class="os-icon os-icon-ui-15"></i></a>
+									<a href="#" title="Delete" onclick="get_student_data('<?php echo $student->stud_id; ?>')" data-target="#humanitiesModal" data-toggle="modal">
 									  <i class="os-icon os-icon-ui-49"></i>
 									</a>
 
