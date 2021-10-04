@@ -1,0 +1,38 @@
+.dashboard-icons{
+	font-size: 2.99rem !important;
+	padding: 10px 0;
+}
+.dashboard-title{
+	font-size: 1.5rem !important;
+}
+.width-33p{
+	width: 32%;
+}
+.width-49p{
+	width:49%;
+}
+.btn-class{
+	padding: 26px 20px 20px 30px;
+
+}
+.pull-right{
+	float: right;
+}
+.f-16{
+	font-size:16px;
+}
+.f-12{
+	font-size: 12px;
+}
+.f-10{
+	font-size: 10px;
+}
+.fw-700{
+	font-weight: 700;
+}
+.mt-1e{
+	margin-top: 1.4em;
+}
+.mt-2e{
+	margin-top: 1.8em;
+}

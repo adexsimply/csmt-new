@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Bar Chart</title>
+    <script src="../../../dist/Chart.bundle.js"></script>
+    <script src="../../utils.js"></script>
+    <style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="container" style="width: 75%;">
+        <canvas id="canvas"></canvas>
+    </div>
+ 
+    <script>
+       
+        var barChartData = {
+            labels: ["JSS1", "JSS2", "JSS3", "SSS1", "SSS2", "SSS3"],
+            datasets: [{
+                label: 'Students',
+                backgroundColor: 'purple',
+                borderColor: 'purple',
+                borderWidth: 1,
+                data: [
+                    200,100,1,90,120,99
+                ]
+            }]
+
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Active students'
+                    }
+                }
+            });
+
+        };
+
+       
+    </script>
+</body>
+
+</html>
